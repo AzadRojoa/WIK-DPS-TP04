@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: part2
+  labels:
+    app: guestbook
+    tier: part2
+spec:
+  # modify replicas according to your case
+  replicas: 4
+  selector:
+    matchLabels:
+      tier: part2
+  template:
+    metadata:
+      labels:
+        tier: part2
+    spec:
+      containers:
+      - name: php-redis
+        image: registry.cluster.wik.cloud/public/echo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-service
+spec:
+  selector:
+    tier: part2
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
