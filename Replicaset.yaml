@@ -6,7 +6,6 @@ metadata:
     app: guestbook
     tier: part2
 spec:
-  # modify replicas according to your case
   replicas: 4
   selector:
     matchLabels:
@@ -17,13 +16,13 @@ spec:
         tier: part2
     spec:
       containers:
-      - name: php-redis
-        image: registry.cluster.wik.cloud/public/echo
+        - name: php-redis
+          image: registry.cluster.wik.cloud/public/echo
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-service
+  name: service-replica
 spec:
   selector:
     tier: part2
